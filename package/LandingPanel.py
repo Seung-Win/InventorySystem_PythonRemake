@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+import customtkinter
 import package.functions
 
 class LandingPanel:
@@ -43,11 +44,13 @@ class LandingPanel:
                             highlightbackground='#F2f7f9')
         companyLabel.place(relx =0.1,rely=0.1)
 
-        temp = Button(body,
-                      text = "NEXT",
-                      command = lambda: [self.forgetLanding(),
-                                         package.functions.showMain(self.root)])
-        temp.place(relx=0.5,rely=0.8)
+        temp = customtkinter.CTkButton(body,
+                                       text = "NEXT",
+                                       fg_color = "#ebebeb",
+                                       text_color = "#0f0f0f",
+                                       command = lambda: [self.forgetLanding(),
+                                                package.functions.showMain(self.root)])
+        temp.place(relx=0.45,rely=0.8)
 
 
 

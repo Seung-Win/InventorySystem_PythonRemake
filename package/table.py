@@ -2,11 +2,14 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import mysql.connector
-import package.MainPanel
+import customtkinter
+from PIL import Image
 
 class Table:
     def __init__(self,overall):
         self.overall = overall
+        self.searchIcon = customtkinter.CTkImage(Image.open("img/search.png").resize((20,20),Image.LANCZOS))
+        self.refreshIcon = customtkinter.CTkImage(Image.open("img/refresh.png").resize((20,20),Image.LANCZOS))
 
     def genTable(self):
         tableFrame = Frame(self.overall,
@@ -44,18 +47,24 @@ class Table:
         self.searchArea.bind("<Return>")
         self.searchArea.place(x=130,y=505)
 
-        searchButton = Button(tableFrame,
-                      text = "SEARCH",
-                      height = 1,
-                      width = 15,
-                      command = self.search)
+        searchButton = customtkinter.CTkButton(tableFrame,
+                                               text = "SEARCH",
+                                               image = self.searchIcon,
+                                               height = 20,
+                                               width = 50,
+                                               fg_color = "#ebebeb",
+                                               text_color = "#0f0f0f",
+                                               command = self.search)
         searchButton.place(x=10,y=503)
 
-        refreshButton = Button(tableFrame,
-                            text = "REFRESH",
-                            height = 1,
-                            width = 15,
-                            command = self.refresh)
+        refreshButton = customtkinter.CTkButton(tableFrame,
+                                                text = "REFRESH",
+                                                image = self.refreshIcon,
+                                                height = 20,
+                                                width = 50,
+                                                fg_color = "#ebebeb",
+                                                text_color = "#0f0f0f",
+                                                command = self.refresh)
         refreshButton.place(x=400,y=503)
         
 

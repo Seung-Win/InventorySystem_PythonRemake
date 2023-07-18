@@ -1,12 +1,18 @@
 from tkinter import *
 from tkcalendar import DateEntry
+import customtkinter
 from package.table import *
 import package.functions
+from PIL import Image
 
 class MainPanel:
     def __init__(self,root):
         self.root = root
         self.sel = StringVar()
+        self.addIcon = customtkinter.CTkImage(Image.open("img/add.png").resize((20,20),Image.LANCZOS))
+        self.delIcon = customtkinter.CTkImage(Image.open("img/delete.png").resize((20,20),Image.LANCZOS))
+        self.updateIcon = customtkinter.CTkImage(Image.open("img/update.png").resize((20,20),Image.LANCZOS))
+        self.logoutIcon = customtkinter.CTkImage(Image.open("img/logout.png").resize((20,20),Image.LANCZOS))
         self.idValue = None
         self.nameValue = None
         self.descValue = None
@@ -36,10 +42,15 @@ class MainPanel:
                             fg = '#F2f7f9')
         companyLabel.place(x =20,y=2)
 
-        backButton = Button(headerFrame,
-                            text = "Log Out",
-                            command = lambda: [self.forgetMainPanel(),
-                                         package.functions.showLanding(self.root)])
+        backButton = customtkinter.CTkButton(master=headerFrame,
+                                             image = self.logoutIcon,
+                                             text = "Log Out",
+                                             fg_color = "#ebebeb",
+                                             text_color = "#0f0f0f",
+                                             width = 50,
+                                             height = 20,
+                                             command = lambda: [self.forgetMainPanel(),
+                                                                package.functions.showLanding(self.root)])
         backButton.place(relx=0.9,rely=0.3)
 
         #Form
@@ -266,40 +277,49 @@ class MainPanel:
         self.root.main_panel = self
 
         #Buttons
-        insertButton = Button(form1Frame,
-                      text = "INSERT",
-                      height = 1,
-                      width = 15,
-                      command = lambda:[package.functions.insertMsg(idTxtField.get(),
-                                                nameTxtField.get(),
-                                                descTxtField.get(),
-                                                priceTxtField.get(),
-                                                self.sel.get(),
-                                                stockTxtField.get(),
-                                                str_dt),
-                                        table.refresh()])
+        insertButton = customtkinter.CTkButton(form1Frame,
+                                               image = self.addIcon,
+                                               text = "INSERT",
+                                               height = 20,
+                                               width = 50,
+                                               fg_color = "#ebebeb",
+                                               text_color = "#0f0f0f",
+                                               command = lambda:[package.functions.insertMsg(idTxtField.get(),
+                                                                            nameTxtField.get(),
+                                                                            descTxtField.get(),
+                                                                            priceTxtField.get(),
+                                                                            self.sel.get(),
+                                                                            stockTxtField.get(),
+                                                                            str_dt),
+                                                                    table.refresh()])
         insertButton.place(x=15,y=250)
 
-        updateButton = Button(form1Frame,
-                            text = "UPDATE",
-                            height = 1,
-                            width = 15,
-                            command = lambda: [package.functions.updateMsg(idTxtField.get(),
-                                                nameTxtField.get(),
-                                                descTxtField.get(),
-                                                priceTxtField.get(),
-                                                self.sel.get(),
-                                                stockTxtField.get(),
-                                                str_dt),
-                                        table.refresh()])
+        updateButton = customtkinter.CTkButton(form1Frame,
+                                               image = self.updateIcon,
+                                               text = "UPDATE",
+                                               height = 20,
+                                               width = 50,
+                                               fg_color = "#ebebeb",
+                                               text_color = "#0f0f0f",
+                                               command = lambda: [package.functions.updateMsg(idTxtField.get(),
+                                                                    nameTxtField.get(),
+                                                                    descTxtField.get(),
+                                                                    priceTxtField.get(),
+                                                                    self.sel.get(),
+                                                                    stockTxtField.get(),
+                                                                    str_dt),
+                                                            table.refresh()])
         updateButton.place(x=140,y=250)
 
-        deleteButton = Button(form1Frame,
-                            text = "DELETE",
-                            height = 1,
-                            width = 15,
-                            command = lambda: [package.functions.deleteMsg(idTxtField.get()),
-                                table.refresh()])
+        deleteButton = customtkinter.CTkButton(form1Frame,
+                                               image = self.delIcon,
+                                               text = "DELETE",
+                                               height = 20,
+                                               width = 50,
+                                               fg_color = "#ebebeb",
+                                               text_color = "#0f0f0f",
+                                               command = lambda: [package.functions.deleteMsg(idTxtField.get()),
+                                                        table.refresh()])
         deleteButton.place(x=265,y=250)
 
     def informationFrame(self, id_value, name_value, desc_value, price_value, avail_value, stock_value, delivery_value):

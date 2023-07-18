@@ -8,11 +8,11 @@ class MainPanel:
         self.sel = StringVar()
     
     def genMainPanel(self):
-        overallFrame = Frame(self.root,
+        self.overallFrame = Frame(self.root,
                             width = 950,
                             height= 600)
-        overallFrame.pack()
-        headerFrame = Frame(overallFrame,
+        self.overallFrame.pack()
+        headerFrame = Frame(self.overallFrame,
                         width = 950,
                         height= 50,
                         bg = "#565656",
@@ -35,7 +35,7 @@ class MainPanel:
         projectLabel.place(x=835,y=20)
 
         #Form
-        form1Frame = Frame(overallFrame,
+        form1Frame = Frame(self.overallFrame,
                     width = 400,
                     height= 320,
                     bg = "#A0A1A4",
@@ -43,7 +43,7 @@ class MainPanel:
                     highlightthickness=2)
         form1Frame.grid(column=0,row=1,sticky='w')
 
-        form2Frame = Frame(overallFrame,
+        form2Frame = Frame(self.overallFrame,
                     width = 400,
                     height= 230,
                     bg = "#A0A1A4",
@@ -252,7 +252,8 @@ class MainPanel:
         insertButton = Button(form1Frame,
                       text = "INSERT",
                       height = 1,
-                      width = 15)
+                      width = 15,
+                      command = lambda: self.forgetMainPanel())
         insertButton.place(x=15,y=250)
 
         updateButton = Button(form1Frame,
@@ -267,8 +268,12 @@ class MainPanel:
                             width = 15)
         deleteButton.place(x=265,y=250)
 
+
         #Create Table Instance
-        table = Table(overallFrame)
+        table = Table(self.overallFrame)
         table.genTable()
 
         self.root.mainloop()
+    
+    def forgetMainPanel(self):
+        self.overallFrame.forget()

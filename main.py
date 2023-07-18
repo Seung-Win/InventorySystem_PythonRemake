@@ -8,7 +8,7 @@ root.geometry("950x600")
 style = ttk.Style(root)
 style.theme_use("clam")
 
-showMain(root)
+showLanding(root)
 
-
+root.mainloop()
 

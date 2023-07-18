@@ -7,8 +7,16 @@ class MainPanel:
     def __init__(self,root):
         self.root = root
         self.sel = StringVar()
-    
+        self.idValue = None
+        self.nameValue = None
+        self.descValue = None
+        self.priceValue = None
+        self.availValue = None
+        self.stockValue = None
+        self.deliveryValue = None
+
     def genMainPanel(self):
+        #Create the UI
         self.overallFrame = Frame(self.root,
                             width = 950,
                             height= 600)
@@ -22,18 +30,17 @@ class MainPanel:
         headerFrame.grid(column=0, row=0, sticky='n')
 
         companyLabel = Label(headerFrame, 
-                            text = "AllMart Inc.",
-                            font = ('Times',25,'bold'),
+                            text = "A l l M a r t   I n c .",
+                            font = ('Eras Bold ITC',25),
                             bg ='#565656',
-                            fg = '#DCDCDC')
+                            fg = '#F2f7f9')
         companyLabel.place(x =20,y=2)
 
-        projectLabel = Label(headerFrame,
-                            text = "Project by: Group",
-                            font = ('Times',10,'bold'),
-                            bg ='#565656',
-                            fg = '#DCDCDC')
-        projectLabel.place(x=835,y=20)
+        backButton = Button(headerFrame,
+                            text = "Log Out",
+                            command = lambda: [self.forgetMainPanel(),
+                                         package.functions.showLanding(self.root)])
+        backButton.place(relx=0.9,rely=0.3)
 
         #Form
         form1Frame = Frame(self.overallFrame,
@@ -156,6 +163,8 @@ class MainPanel:
         availDateEntry = DateEntry(form1Frame,
                                 selectmode = 'day')
         availDateEntry.place(x=150,y=210)
+        dt = availDateEntry.get_date()
+        str_dt = dt.strftime("%Y-%m-%d")
 
         #Form2 Labels
         infoLabel2 = Label(form2Frame,
@@ -207,75 +216,100 @@ class MainPanel:
         deliveryLabel2.place(x=5,y=180)
 
         #Form2 Values
-        idValue = Label(form2Frame,
+        self.idValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        idValue.place(x=150,y=30)
+        self.idValue.place(x=150,y=30)
 
-        nameValue = Label(form2Frame,
+        self.nameValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        nameValue.place(x=150,y=55)
+        self.nameValue.place(x=150,y=55)
 
-        descValue = Label(form2Frame,
+        self.descValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        descValue.place(x=150,y=80)
+        self.descValue.place(x=150,y=80)
 
-        priceValue = Label(form2Frame,
+        self.priceValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        priceValue.place(x=150,y=105)
+        self.priceValue.place(x=150,y=105)
 
-        availValue = Label(form2Frame,
+        self.availValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        availValue.place(x=150,y=130)
+        self.availValue.place(x=150,y=130)
 
-        stockValue = Label(form2Frame,
+        self.stockValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        stockValue.place(x=150,y=155)
+        self.stockValue.place(x=150,y=155)
 
-        deliveryValue = Label(form2Frame,
+        self.deliveryValue = Label(form2Frame,
                         text = "",
                         font = ('ARIAL',10,'bold'),
                         bg = "#A0A1A4")
-        deliveryValue.place(x=150,y=180)
+        self.deliveryValue.place(x=150,y=180)
+
+        #Create Table Instance
+        table = Table(self.overallFrame)
+        table.genTable()
+        table.refresh()
+        table.bind()
+        self.root.main_panel = self
 
         #Buttons
         insertButton = Button(form1Frame,
                       text = "INSERT",
                       height = 1,
                       width = 15,
-                      command = lambda: [self.forgetMainPanel(),
-                                         package.functions.showLanding(self.root)])
+                      command = lambda:[package.functions.insertMsg(idTxtField.get(),
+                                                nameTxtField.get(),
+                                                descTxtField.get(),
+                                                priceTxtField.get(),
+                                                self.sel.get(),
+                                                stockTxtField.get(),
+                                                str_dt),
+                                        table.refresh()])
         insertButton.place(x=15,y=250)
 
         updateButton = Button(form1Frame,
                             text = "UPDATE",
                             height = 1,
-                            width = 15)
+                            width = 15,
+                            command = lambda: [package.functions.updateMsg(idTxtField.get(),
+                                                nameTxtField.get(),
+                                                descTxtField.get(),
+                                                priceTxtField.get(),
+                                                self.sel.get(),
+                                                stockTxtField.get(),
+                                                str_dt),
+                                        table.refresh()])
         updateButton.place(x=140,y=250)
 
         deleteButton = Button(form1Frame,
                             text = "DELETE",
                             height = 1,
-                            width = 15)
+                            width = 15,
+                            command = lambda: [package.functions.deleteMsg(idTxtField.get()),
+                                table.refresh()])
         deleteButton.place(x=265,y=250)
 
+    def informationFrame(self, id_value, name_value, desc_value, price_value, avail_value, stock_value, delivery_value):
+        self.idValue.config(text=id_value)
+        self.nameValue.config(text=name_value)
+        self.descValue.config(text=desc_value)
+        self.priceValue.config(text=price_value)
+        self.availValue.config(text=avail_value)
+        self.stockValue.config(text=stock_value)
+        self.deliveryValue.config(text=delivery_value)
 
-        #Create Table Instance
-        table = Table(self.overallFrame)
-        table.genTable()
-
-        self.root.mainloop()
-    
     def forgetMainPanel(self):
-        self.overallFrame.forget()
+        self.overallFrame.destroy()

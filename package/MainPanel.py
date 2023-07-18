@@ -1,6 +1,7 @@
 from tkinter import *
 from tkcalendar import DateEntry
 from package.table import *
+import package.functions
 
 class MainPanel:
     def __init__(self,root):
@@ -253,7 +254,8 @@ class MainPanel:
                       text = "INSERT",
                       height = 1,
                       width = 15,
-                      command = lambda: self.forgetMainPanel())
+                      command = lambda: [self.forgetMainPanel(),
+                                         package.functions.showLanding(self.root)])
         insertButton.place(x=15,y=250)
 
         updateButton = Button(form1Frame,

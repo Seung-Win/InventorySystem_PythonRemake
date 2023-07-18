@@ -1,4 +1,5 @@
 from tkinter import *
+import package.functions
 
 class LandingPanel:
 
@@ -8,5 +9,9 @@ class LandingPanel:
     def genLanding(self):
         self.overallFrame = Frame(self.root,
                             width = 950,
-                            height= 600)
+                            height= 600,
+                            bg = 'BLUE')
         self.overallFrame.pack()
+
+    def forgetLanding(self):
+        self.overallFrame.forget()

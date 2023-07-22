@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import customtkinter
 import package.functions
@@ -81,14 +82,25 @@ class LandingPanel:
                         font = ('Arial', 20),
                         bg = '#565656',
                         fg = '#F2f7f9')
-        userLbl.place(relx=0.2, rely=0.5)
+        userLbl.place(relx=0.2, rely=0.45)
 
-        passbl = Label(self.body,
+        passLbl = Label(self.body,
                         text = "Password:",
                         font = ('Arial', 20),
                         bg = '#565656',
                         fg = '#F2f7f9')
-        passbl.place(relx=0.2, rely=0.7)
+        passLbl.place(relx=0.2, rely=0.65)
+
+        userEntry = Entry(self.body,
+                          font = ('Arial', 20),
+                          width = 27)
+        userEntry.place(relx=0.36, rely=0.46)
+
+        passEntry = Entry(self.body,
+                          font = ('Arial', 20),
+                          width = 27,
+                          show = '*')
+        passEntry.place(relx=0.36, rely=0.65)
 
         backButton = customtkinter.CTkButton(self.body,
                                        image = self.backIcon,
@@ -99,6 +111,25 @@ class LandingPanel:
                                        command = lambda: [self.body.destroy(),
                                                 self.genInit()])
         backButton.place(relx=0.05,rely=0.05)
+
+        loginButton = customtkinter.CTkButton(self.body,
+                                       text = "Login",
+                                       height = 30,
+                                       width = 50,
+                                       fg_color = "#ebebeb",
+                                       text_color = "#0f0f0f",
+                                       command = lambda: self.validate(userEntry.get(),passEntry.get()))
+        loginButton.place(relx=0.47,rely=0.85)
+    
+    def validate(self,user,password):
+        if (user == "admin" and password == "allmartadmin"):
+            self.forgetLanding()
+            package.functions.showLoading(self.root)
+        elif(user == "" or password ==""):
+            messagebox.showinfo("Message","Please input all fields!")
+        else:
+            messagebox.showinfo("Error!","Incorrect username or password!")
+
 
     def forgetLanding(self):
         self.overallFrame.destroy()

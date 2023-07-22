@@ -10,6 +10,14 @@ class Table:
         self.overall = overall
         self.searchIcon = customtkinter.CTkImage(Image.open("img/search.png").resize((20,20),Image.LANCZOS))
         self.refreshIcon = customtkinter.CTkImage(Image.open("img/refresh.png").resize((20,20),Image.LANCZOS))
+        self.selected =None
+        self.id_value =None
+        self.name_value=None
+        self.desc_value =None
+        self.price_value =None
+        self.avail_value =None
+        self.stock_value =None
+        self.delivery_value =None
 
     def genTable(self):
         tableFrame = Frame(self.overall,
@@ -86,24 +94,24 @@ class Table:
 
     def onClick(self,event):
         for parent in self.tree.selection():
-            selected = self.tree.item(parent,"values")[0]
-        self.mycursor.execute("SELECT * FROM product WHERE product_ID = %s",(selected,))
+            self.selected = self.tree.item(parent,"values")[0]
+        self.mycursor.execute("SELECT * FROM product WHERE product_ID = %s",(self.selected,))
         record  = self.mycursor.fetchall()
         for r in record:
-            id_value = r[0]
-            name_value=r[1]
-            desc_value = r[2]
-            price_value =r[3]
-            avail_value =r[4]
-            stock_value =r[5]
-            delivery_value =r[6]
+            self.id_value = r[0]
+            self.name_value=r[1]
+            self.desc_value = r[2]
+            self.price_value =r[3]
+            self.avail_value =r[4]
+            self.stock_value =r[5]
+            self.delivery_value =r[6]
         #Create Instance of Main Panel
         root = self.overall.winfo_toplevel()
 
         # Check if the root window has an instance of MainPanel
         if hasattr(root, "main_panel"):
             main_panel = root.main_panel
-            main_panel.informationFrame(id_value, name_value, desc_value, price_value, avail_value, stock_value, delivery_value)
+            main_panel.informationFrame(self.id_value, self.name_value, self.desc_value, self.price_value, self.avail_value, self.stock_value, self.delivery_value)
         
     def bind(self):
         self.tree.bind("<<TreeviewSelect>>", self.onClick)

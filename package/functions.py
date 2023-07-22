@@ -1,6 +1,7 @@
 import package.LandingPanel 
 import package.MainPanel
 import package.table
+import package.Loading
 from tkinter import messagebox
 import mysql.connector
 
@@ -12,6 +13,12 @@ def showLanding(root):
 def showMain(root):
     main = package.MainPanel.MainPanel(root)
     main.genMainPanel()
+
+def showLoading(root):
+    loading = package.Loading.Loading(root)
+    loading.genLoading()
+    root.after(1000,loading.forgetLoading)
+    
 
 def insertMsg(idVal,nameVal,descVal,priceVal,availVal,stockVal,dateVal):
     if (idVal=="" or nameVal=="" or descVal=="" or priceVal=="" or availVal=="" or stockVal=="" or dateVal==""):

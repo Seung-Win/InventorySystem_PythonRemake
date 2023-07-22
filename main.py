@@ -11,5 +11,7 @@ style.theme_use("clam")
 
 showLanding(root)
 
+root.resizable(False,False)
+root.eval('tk::PlaceWindow . center')
 root.mainloop()
 

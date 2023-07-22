@@ -1,0 +1,1 @@
+self.logo = ImageTk.PhotoImage(Image.open("img/logo.png").resize((300,300),Image.LANCZOS))

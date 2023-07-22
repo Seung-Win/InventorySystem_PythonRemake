@@ -3,7 +3,7 @@ from tkcalendar import DateEntry
 import customtkinter
 from package.table import *
 import package.functions
-from PIL import Image
+from PIL import Image, ImageTk
 
 class MainPanel:
     def __init__(self,root):
@@ -11,6 +11,7 @@ class MainPanel:
         self.sel = StringVar()
         self.addIcon = customtkinter.CTkImage(Image.open("img/add.png").resize((20,20),Image.LANCZOS))
         self.delIcon = customtkinter.CTkImage(Image.open("img/delete.png").resize((20,20),Image.LANCZOS))
+        self.logo = ImageTk.PhotoImage(Image.open("img/logo.png").resize((75,75),Image.LANCZOS))
         self.updateIcon = customtkinter.CTkImage(Image.open("img/update.png").resize((20,20),Image.LANCZOS))
         self.logoutIcon = customtkinter.CTkImage(Image.open("img/logout.png").resize((20,20),Image.LANCZOS))
         self.idValue = None
@@ -40,7 +41,14 @@ class MainPanel:
                             font = ('Eras Bold ITC',25),
                             bg ='#565656',
                             fg = '#F2f7f9')
-        companyLabel.place(x =20,y=2)
+        companyLabel.place(x =70,y=2)
+
+        logo = Label(headerFrame,
+                     height = 40,
+                     width=40,
+                     image = self.logo,
+                     bg = '#565656')
+        logo.place(x=15, y=1)
 
         backButton = customtkinter.CTkButton(master=headerFrame,
                                              image = self.logoutIcon,

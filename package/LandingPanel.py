@@ -10,6 +10,7 @@ class LandingPanel:
         self.root = root
         self.img1 = ImageTk.PhotoImage(Image.open("img/mart1.jpg").resize((950,150)))
         self.img2 = ImageTk.PhotoImage(Image.open("img/mart2.jpg").resize((950,150)))
+        self.logo = ImageTk.PhotoImage(Image.open("img/logo.png").resize((300,300),Image.LANCZOS))
         self.nextIcon = customtkinter.CTkImage(Image.open("img/next.png").resize((20,20),Image.LANCZOS))
         self.backIcon = customtkinter.CTkImage(Image.open("img/back.png").resize((30,30),Image.LANCZOS))
     
@@ -42,24 +43,30 @@ class LandingPanel:
         self.body.grid(row=1,column=0,sticky='n')
 
         companyLabel = Label(self.body, 
-                            text = "AllMart\n I n c o r p o r a t e d ",
+                            text = "AllMart\n Incorporated ",
                             font = ('Eras Bold ITC',60),
                             bg ='#565656',
-                            fg = '#F2f7f9',
-                            highlightthickness=2,
-                            highlightbackground='#F2f7f9')
-        companyLabel.place(relx =0.08,rely=0.1)
+                            fg = '#F2f7f9')
+        companyLabel.place(relx =0.35,rely=0.1)
+
+        logoLbl = Label(self.body,
+                        height = 200,
+                        width = 200,
+                        borderwidth=0,
+                        image = self.logo,
+                        bg= '#565656')                   
+        logoLbl.place(relx=0.08,rely = 0.09)
 
         nextButton = customtkinter.CTkButton(self.body,
                                        text = "NEXT",
                                        image = self.nextIcon,
                                        height = 30,
-                                       width = 60,
+                                       width = 70,
                                        fg_color = "#ebebeb",
                                        text_color = "#0f0f0f",
                                        command = lambda: [self.body.destroy(),
                                                 self.genLogin()])
-        nextButton.place(relx=0.46,rely=0.8)
+        nextButton.place(relx=0.6,rely=0.8)
 
     def genLogin(self):
         self.body = Frame(self.overallFrame,
@@ -72,9 +79,7 @@ class LandingPanel:
                             text = " Greetings Admin! ",
                             font = ('Eras Bold ITC',50),
                             bg ='#565656',
-                            fg = '#F2f7f9',
-                            highlightthickness=2,
-                            highlightbackground='#F2f7f9')
+                            fg = '#F2f7f9')
         greetLbl.place(relx =0.16,rely=0.1)
 
         userLbl = Label(self.body,
